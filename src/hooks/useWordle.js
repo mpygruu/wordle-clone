@@ -32,47 +32,52 @@ const useWordle = (word) => {
                     guess.color = 'yellow';
                 }
             }
-        })       
+        })
+        
+        return formattedGuess;
     }
+
+    
 
     //handle keyboard input
     const handleInput = ({ key }) => {
-
-        //checking for enter to submit guess
-        if(key === 'Enter' && currentGuess.length === 5) {
-            formatGuessedWord(currentGuess);
-            setGuessedWords((previous) => {
-                let present = previous;
-                //present.push(currentGuess);
-                previous[whichLine] = currentGuess;
-                return present;
-                
-            });
-            setGuessedLetters((previous) => {
-                let present = previous;
-                for(let i=0; i<previous.length; i++) {
-                    present.push(currentGuess[i]);
+        if(whichLine <= 5) {
+            //checking for enter to submit guess
+            if(key === 'Enter' && currentGuess.length === 5) {
+                const formattedGuess = formatGuessedWord();
+                setGuessedWords((previous) => {
+                    let present = previous;
+                    //present.push(currentGuess);
+                    present[whichLine] = formattedGuess;
+                    return present;
+                    
+                });
+                setGuessedLetters((previous) => {
+                    let present = previous;
+                    for(let i=0; i<previous.length; i++) {
+                        present.push(currentGuess[i]);
+                    }
+                    return present;
+                });
+                if(currentGuess.guess === word) {
+                    setIsCorrect(true);
                 }
-                return present;
-            });
-            if(currentGuess === word) {
-                setIsCorrect(true);
+                setCurrentGuess('');
+                setWhichLine((previous) => previous+1);
             }
-            setCurrentGuess('');
-            setWhichLine((previous) => previous++);
-        }
 
-        //adding letter to actual guess
-        if(/^[a-zA-Z]$/.test(key) && currentGuess.length < 5) {
-            setCurrentGuess((previous) => {
-                return previous + key.toUpperCase();
-            });          
-        }    
-        //removing last letter with backspace
-        else if(key === 'Backspace' && currentGuess.length > 0) {
-            setCurrentGuess((previous) => {
-                return previous.slice(0, -1);
-            }) 
+            //adding letter to actual guess
+            if(/^[a-zA-Z]$/.test(key) && currentGuess.length < 5) {
+                setCurrentGuess((previous) => {
+                    return previous + key.toUpperCase();
+                });          
+            }    
+            //removing last letter with backspace
+            else if(key === 'Backspace' && currentGuess.length > 0) {
+                setCurrentGuess((previous) => {
+                    return previous.slice(0, -1);
+                }) 
+            }
         }
     }
 
