@@ -15,6 +15,7 @@ body {
 h1 {
   border: 2px solid lightgray;
   padding: 10px;
+  margin-bottom: 50px;
 }
 
 .Line {
@@ -30,6 +31,21 @@ h1 {
   border: 1px solid #aaa;
   margin: 4px;
   font-weight: 600;
-  font-size: 22px;
+  font-size: 30px;
   line-height: 70px;
+}
+
+.Line > .green {
+  background-color: rgb(132, 229, 132);
+  border-color: rgb(132, 229, 132);
+}
+
+.Line > .yellow {
+  background-color: rgb(255, 236, 62);
+  border-color: rgb(255, 236, 62);
+}
+
+.Line > .grey {
+  background-color: rgb(187, 187, 187);
+  border-color: rgb(187, 187, 187);
 }
