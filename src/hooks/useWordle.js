@@ -5,9 +5,9 @@ const useWordle = (word) => {
     const [whichLine, setWhichLine] = useState(0);
     const [currentGuess, setCurrentGuess] = useState('');
     const [guessedLetters, setGuessedLetters] = useState([]);
-    const [guessedWords, setGuessedWords] = useState(Array.from(''.repeat(6)));
+    const [guessedWords, setGuessedWords] = useState([...Array(6)]);
     const [isCorrect, setIsCorrect] = useState(false);
-    
+
     //parse submitted string into an array of letters and its colors
     const formatGuessedWord = () => {
         //this line does the same thing as 3 commented lines below
@@ -32,11 +32,7 @@ const useWordle = (word) => {
                     guess.color = 'yellow';
                 }
             }
-        })
-        
-        console.log(formattedGuess);
-        console.log(guessedWords);
-        console.log(guessedLetters);
+        })       
     }
 
     //handle keyboard input
@@ -47,8 +43,10 @@ const useWordle = (word) => {
             formatGuessedWord(currentGuess);
             setGuessedWords((previous) => {
                 let present = previous;
-                present.push(currentGuess);
+                //present.push(currentGuess);
+                previous[whichLine] = currentGuess;
                 return present;
+                
             });
             setGuessedLetters((previous) => {
                 let present = previous;
@@ -78,7 +76,7 @@ const useWordle = (word) => {
         }
     }
 
-    return {whichLine, currentGuess, guessedLetters, isCorrect, handleInput};
+    return {whichLine, currentGuess, guessedLetters, guessedWords, isCorrect, handleInput};
 }
 
 export default useWordle;
