@@ -3,7 +3,7 @@ import useWordle from '../hooks/useWordle';
 import Board from './Board';
 
 export default function Wordle({ word }) {
-  const { currentGuess, guessedWords, handleInput } = useWordle(word);
+  const { currentGuess, guessedWords, whichLine, handleInput } = useWordle(word);
 
   useEffect(() => {
     window.addEventListener('keyup', handleInput);
@@ -14,10 +14,8 @@ export default function Wordle({ word }) {
   }, [handleInput]);
 
   return (
-    <div>
-      <p>the word is {word}</p>
-      <p>current guess is {currentGuess} </p>
-      <Board guessedWords={guessedWords} />
+    <div>     
+      <Board guessedWords={guessedWords} currentGuess={currentGuess} whichLine={whichLine} />
     </div>
   )
 }
