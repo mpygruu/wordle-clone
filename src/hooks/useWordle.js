@@ -73,7 +73,7 @@ const useWordle = (word, chooseRandomWord) => {
                 }
 
                 //ending the game after submitting last word
-                if(whichLine == 5) {
+                if(whichLine === 5) {
                     setEndGame(true);
                 }
 
