@@ -2,11 +2,12 @@ import { useState } from 'react';
 
 //using a hook to separate logic for Wordle from its UI
 const useWordle = (word) => {
-    const [whichLine, setWhichLine] = useState(0);
+    const [whichLine, setWhichLine] = useState(0); //lines count from 0
     const [currentGuess, setCurrentGuess] = useState('');
     const [guessedLetters, setGuessedLetters] = useState([]);
     const [guessedWords, setGuessedWords] = useState([...Array(6)]);
     const [isCorrect, setIsCorrect] = useState(false);
+    const [endGame, setEndGame] = useState(false);
 
     //parse submitted string into an array of letters and its colors
     const formatGuessedWord = () => {
@@ -66,6 +67,16 @@ const useWordle = (word) => {
             //checking for enter to submit guess
             if(key === 'Enter' && currentGuess.length === 5) {
                 addNewGuess();
+                if(currentGuess === word) {
+                    setIsCorrect(true);
+                    setEndGame(true);
+                }
+
+                //ending the game after submitting last word
+                if(whichLine == 5) {
+                    setEndGame(true);
+                }
+
             }
 
             //adding letter to actual guess
@@ -80,10 +91,19 @@ const useWordle = (word) => {
                     return previous.slice(0, -1);
                 }) 
             }
-        }
+        }      
     }
 
-    return {whichLine, currentGuess, guessedLetters, guessedWords, isCorrect, handleInput};
+    const playAgain = () => {
+        setWhichLine(0);
+        setCurrentGuess('');
+        setGuessedLetters([]);
+        setGuessedWords([...Array(6)]);
+        setIsCorrect(false);
+        setEndGame(false);
+    }
+
+    return {whichLine, currentGuess, guessedLetters, guessedWords, isCorrect, endGame, handleInput, playAgain};
 }
 
 export default useWordle;

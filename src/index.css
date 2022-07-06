@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  z-index: 1;
 }
 
 body {
@@ -48,4 +49,41 @@ h1 {
 .Line > .grey {
   background-color: rgb(187, 187, 187);
   border-color: rgb(187, 187, 187);
+}
+
+.GameFinished {
+  position: fixed;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  box-shadow: 5px 5px 5px #666;
+  z-index: 2;
+  padding: 1.5%;
+}
+
+.GameFinished input {
+  padding: 3px;
+}
+
+.word {
+  padding: 7%;
+  margin-bottom: 10%;
+  font-weight: 600;
+  font-size: large;
+}
+
+.correct {
+  color: rgb(0, 133, 0);
+  font-weight: 600;
+}
+
+.portal-theme {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: inherit;
 }
