@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 //using a hook to separate logic for Wordle from its UI
-const useWordle = (word) => {
+const useWordle = (word, chooseRandomWord) => {
     const [whichLine, setWhichLine] = useState(0); //lines count from 0
     const [currentGuess, setCurrentGuess] = useState('');
     const [guessedLetters, setGuessedLetters] = useState([]);
@@ -101,6 +101,7 @@ const useWordle = (word) => {
         setGuessedWords([...Array(6)]);
         setIsCorrect(false);
         setEndGame(false);
+        chooseRandomWord();
     }
 
     return {whichLine, currentGuess, guessedLetters, guessedWords, isCorrect, endGame, handleInput, playAgain};

@@ -3,8 +3,8 @@ import useWordle from '../hooks/useWordle';
 import Board from './Board';
 import GameFinished from './GameFinished';
 
-export default function Wordle({ word }) {
-  const { currentGuess, guessedWords, whichLine, isCorrect, endGame, handleInput, playAgain } = useWordle(word);
+export default function Wordle({ word, chooseRandomWord }) {
+  const { currentGuess, guessedWords, whichLine, isCorrect, endGame, handleInput, playAgain } = useWordle(word, chooseRandomWord);
 
   useEffect(() => {
     if(!endGame) {
