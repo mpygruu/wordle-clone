@@ -37,33 +37,35 @@ const useWordle = (word) => {
         return formattedGuess;
     }
 
-    
+    const addNewGuess = () => {
+        const formattedGuess = formatGuessedWord();
+        setGuessedWords((previous) => {
+            let present = previous;
+            //present.push(currentGuess);
+            present[whichLine] = formattedGuess;
+            return present;
+            
+        });
+        setGuessedLetters((previous) => {
+            let present = previous;
+            for(let i=0; i<previous.length; i++) {
+                present.push(currentGuess[i]);
+            }
+            return present;
+        });
+        if(currentGuess.guess === word) {
+            setIsCorrect(true);
+        }
+        setCurrentGuess('');
+        setWhichLine((previous) => previous+1);
+    }
 
     //handle keyboard input
     const handleInput = ({ key }) => {
         if(whichLine <= 5) {
             //checking for enter to submit guess
             if(key === 'Enter' && currentGuess.length === 5) {
-                const formattedGuess = formatGuessedWord();
-                setGuessedWords((previous) => {
-                    let present = previous;
-                    //present.push(currentGuess);
-                    present[whichLine] = formattedGuess;
-                    return present;
-                    
-                });
-                setGuessedLetters((previous) => {
-                    let present = previous;
-                    for(let i=0; i<previous.length; i++) {
-                        present.push(currentGuess[i]);
-                    }
-                    return present;
-                });
-                if(currentGuess.guess === word) {
-                    setIsCorrect(true);
-                }
-                setCurrentGuess('');
-                setWhichLine((previous) => previous+1);
+                addNewGuess();
             }
 
             //adding letter to actual guess
