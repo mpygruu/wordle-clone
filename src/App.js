@@ -17,6 +17,15 @@ function App() {
     })
   }, [setWord])
 
+  if(!word) {
+    return (
+      <div>
+        <h1>Wordle Clone</h1>       
+        Randomly selecting word to guess...
+      </div>
+    )
+  }
+
   return (
     <div className="App">
       <h1>Wordle Clone</h1>
