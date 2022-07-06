@@ -33,7 +33,6 @@ function App() {
   return (
     <div className="App">
       <h1>Wordle Clone</h1>
-      <p>{word}</p>
       <Wordle word={word} chooseRandomWord={chooseRandomWord}></Wordle>
     </div>
   );
