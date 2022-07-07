@@ -12,7 +12,7 @@ The word to guess is picked randomly from words.json. I prepared this file mysel
 
 The goal of the game is to guess randomly chosen, five letter long word. You have six tries to guess it.
 
-Write the word you want to check using your keyboard and press enter after providing all five letters. Then some letters will be colorised in one of three colors below:
+Write the word you want to check using your keyboard and press enter after providing all five letters. Then provided letters will be colorised in one of three colors below:
 
 * Grey letter means that it is non-existent in the chosen word.
 * Yellow letter means that the letter exists in the chosen word, but it is in incorrect position.
