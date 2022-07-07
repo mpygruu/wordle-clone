@@ -15,7 +15,7 @@ export default function Wordle({ word, chooseRandomWord }) {
     //provided to avoid multiple keyup events at once after refreshing
     //runs when dismounted
     return () => window.removeEventListener('keyup', handleInput);
-  }, [isCorrect, handleInput]);
+  }, [isCorrect, endGame, handleInput]);
 
   return (
     <div>     
