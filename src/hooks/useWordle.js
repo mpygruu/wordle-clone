@@ -9,6 +9,26 @@ const useWordle = (word, chooseRandomWord) => {
     const [isCorrect, setIsCorrect] = useState(false);
     const [endGame, setEndGame] = useState(false);
 
+    //return an array where every letter has its number of occurences
+    //helps determine color of checked letter
+    const wordLettersOccurences = () => {
+
+        let letters = []
+        
+        //assign a number (0) for every element
+        for(let i=0; i<word.length; i++) {
+            letters[word[i]] = 0;
+        }
+
+        for(let i=0; i<word.length; i++) {
+            letters[word[i]]++;
+        }
+
+        return letters;
+    }
+
+    
+
     //parse submitted string into an array of letters and its colors
     const formatGuessedWord = () => {
         //this line does the same thing as 3 commented lines below
@@ -23,18 +43,36 @@ const useWordle = (word, chooseRandomWord) => {
             return {key: letter, color: 'grey'};
         });
 
-        //assign color to letters
+        let letters = wordLettersOccurences();
+
+        let lettersLeft = [Array(6)];
+        //assign a number (0) for every element
+        for(let i=0; i<currentGuess.length; i++) {
+            lettersLeft[currentGuess[i]] = 0;
+        }
+        
+        //assign green color to letters
         formattedGuess.forEach((guess, index) => {
             if(wordLetters.includes(guess.key)) {
                 if(wordLetters[index] === guess.key) {
                     guess.color = 'green';
-                }
-                else {
-                    guess.color = 'yellow';
-                }
+                    lettersLeft[guess.key]++;
+                }               
+                
             }
         })
         
+        //assign yellow color to letters
+        formattedGuess.forEach((guess) => {
+            if(wordLetters.includes(guess.key)) {
+                if(lettersLeft[guess.key] < letters[guess.key] && guess.color !== 'green') {
+                    guess.color = 'yellow';
+                    lettersLeft[guess.key]++;
+                }               
+                
+            }
+        })
+
         return formattedGuess;
     }
 
