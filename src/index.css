@@ -87,3 +87,14 @@ h1 {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: inherit;
 }
+
+.WordNotFound {
+  position: fixed;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(255, 170, 170);
+  box-shadow: 3px 3px 3px #666;
+  z-index: 2;
+  padding: 1.5%;
+}

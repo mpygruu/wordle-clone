@@ -8,6 +8,37 @@ const useWordle = (word, chooseRandomWord) => {
     const [guessedWords, setGuessedWords] = useState([...Array(6)]);
     const [isCorrect, setIsCorrect] = useState(false);
     const [endGame, setEndGame] = useState(false);
+    const [wrongWord, setWrongWord] = useState(false);
+
+    const checkWord = async () => {
+        //get words array from json
+        const response = await fetch('http://localhost:3001/wordsList');
+        //retrieve data from json into array
+        const json = await response.json();
+
+        return binarySearch(json);  
+    }
+
+    const binarySearch = (words) => {
+        let left = 0;
+        let right = words.length-1;
+        
+        while(left < right) {
+            let middle = Math.floor((left+right)/2);
+            let result = currentGuess.localeCompare(words[middle])
+            console.log(result + " " + left + " " + right + " " + words[middle])
+            if(result === 0) {
+                return true;
+            }
+            else if(result === 1) {
+                left = middle+1;
+            }
+            else if(result === -1) {
+                right = middle;
+            }
+        }
+        return false;
+    }
 
     //return an array where every letter has its number of occurences
     //helps determine color of checked letter
@@ -26,8 +57,6 @@ const useWordle = (word, chooseRandomWord) => {
 
         return letters;
     }
-
-    
 
     //parse submitted string into an array of letters and its colors
     const formatGuessedWord = () => {
@@ -101,22 +130,31 @@ const useWordle = (word, chooseRandomWord) => {
 
     //handle keyboard input
     const handleInput = ({ key }) => {
-        if(whichLine <= 5) {
+        if(whichLine <= 5) {           
             //checking for enter to submit guess
             if(key === 'Enter' && currentGuess.length === 5) {
-                addNewGuess();
-                if(currentGuess === word) {
-                    setIsCorrect(true);
-                    setEndGame(true);
-                }
-
-                //ending the game after submitting last word
-                if(whichLine === 5) {
-                    setEndGame(true);
-                }
-
+                checkWord().then((wordExists)  => {
+                    if(wordExists) {
+                        addNewGuess();
+                        if(currentGuess === word) {
+                            setIsCorrect(true);
+                            setEndGame(true);
+                        }
+                        //ending the game after submitting last word
+                        if(whichLine === 5) {
+                            setEndGame(true);
+                        } 
+                    }
+                    else {
+                        //show that the provided word is wrong for a period of time
+                        setWrongWord(true);
+                        setTimeout(() => {
+                            setWrongWord(false);
+                        }, 1000);
+                    } 
+                })                   
             }
-
+            
             //adding letter to actual guess
             if(/^[a-zA-Z]$/.test(key) && currentGuess.length < 5) {
                 setCurrentGuess((previous) => {
@@ -142,7 +180,7 @@ const useWordle = (word, chooseRandomWord) => {
         chooseRandomWord();
     }
 
-    return {whichLine, currentGuess, guessedLetters, guessedWords, isCorrect, endGame, handleInput, playAgain};
+    return {whichLine, currentGuess, guessedLetters, guessedWords, isCorrect, endGame, handleInput, playAgain, wrongWord};
 }
 
 export default useWordle;

@@ -2,9 +2,10 @@ import { useEffect } from 'react';
 import useWordle from '../hooks/useWordle';
 import Board from './Board';
 import GameFinished from './GameFinished';
+import WordNotFound from './WordNotFound';
 
 export default function Wordle({ word, chooseRandomWord }) {
-  const { currentGuess, guessedWords, whichLine, isCorrect, endGame, handleInput, playAgain } = useWordle(word, chooseRandomWord);
+  const { currentGuess, guessedWords, whichLine, isCorrect, endGame, handleInput, playAgain, wrongWord } = useWordle(word, chooseRandomWord);
 
   useEffect(() => {
     if(!endGame) {
@@ -18,9 +19,10 @@ export default function Wordle({ word, chooseRandomWord }) {
   }, [isCorrect, endGame, handleInput]);
 
   return (
-    <div>     
+    <div>
       <Board guessedWords={guessedWords} currentGuess={currentGuess} whichLine={whichLine} />
       <GameFinished word={word} endGame={endGame} isCorrect={isCorrect} playAgain={playAgain}></GameFinished>
+      <WordNotFound wrongWord={wrongWord}></WordNotFound>
     </div>
   )
 }

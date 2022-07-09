@@ -14,7 +14,7 @@ export default function GameFinished({ word, isCorrect, endGame, playAgain }) {
           <input type='button' value='Play again' onClick={playAgain}></input>
         </div>
       </>,
-      document.getElementById('game-finished')
+      document.getElementById('portal')
     )
   }
 
@@ -29,7 +29,7 @@ export default function GameFinished({ word, isCorrect, endGame, playAgain }) {
           <input type='button' value='Play again' onClick={playAgain}></input>
         </div>
       </>,
-      document.getElementById('game-finished')
+      document.getElementById('portal')
     )
   }
   
