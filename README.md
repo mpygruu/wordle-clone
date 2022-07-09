@@ -32,3 +32,4 @@ After cloning the repo you need to:
 <img src="./img/blank.png" alt="Fresh start" />
 <img src="./img/mid-game.png" alt="Mid Game" />
 <img src="./img/win.png" alt="Win" />
+<img src="./img/word-not-found.png" alt="Word Not Found" />
